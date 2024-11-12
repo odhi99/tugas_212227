@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabel Nilai Siswa</title>
+
+    <!-- DataTables CSS -->
+    <link
+      href="assets/vendor/datatables/css/jquery.dataTables.min.css"
+      rel="stylesheet"
+    />
+    <!-- Nice Select CSS -->
+    <link
+      href="assets/vendor/jquery-nice-select/css/nice-select.css"
+      rel="stylesheet"
+    />
+    <!-- SweetAlert CSS -->
+    <link
+      rel="stylesheet"
+      href="assets/node_modules/sweetalert2/dist/sweetalert2.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h2 align="center">Daftar Nilai Siswa</h2>
+
+    <table id="siswaTable" class="display">
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Nilai</th>
+          <th>Status</th>
+          <th>Nilai Huruf</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- Baris data akan diisi secara dinamis melalui JavaScript -->
+      </tbody>
+    </table>
+
+    <!-- jQuery Library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <!-- Nice Select JS -->
+    <script src="assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <!-- SweetAlert JS -->
+    <script src="assets/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+  </body>
+</html>

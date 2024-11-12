@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabel Nilai Siswa</title>
+    <style>
+      table {
+        width: 60%;
+        margin: auto;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .search,
+      .pagination {
+        width: 60%;
+        margin: 20px auto;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 align="center">Daftar Nilai Siswa</h2>
+
+    <!-- Form pencarian -->
+    <div class="search">
+      <label for="search"></label>
+      <input type="text" id="search" placeholder="Cari Nama Siswa..." />
+    </div>
+
+    <!-- Tabel data siswa -->
+    <table>
+      <tr>
+        <th>Nama</th>
+        <th>Nilai</th>
+        <th>Status</th>
+        <th>Nilai Huruf</th>
+      </tr>
+      <!-- Data siswa akan diisi secara dinamis melalui JavaScript -->
+    </table>
+
+    <!-- Informasi pagination -->
+    <div class="pagination">
+      <span id="info">Menampilkan 1 hingga 5 dari 5 entri</span>
+      <br />
+      <button onclick="prevPage()">Sebelumnya</button>
+      <button onclick="nextPage()">Selanjutnya</button>
+    </div>
+
+    <script>
+      // Data siswa dalam array dua dimensi
+      const siswa = [
+        ["Eka", 90],
+        ["Agustin", 70],
+        ["Tika", 80],
+        ["Fiersa", 60],
+        ["Chandra", 85],
+        ["Dina", 55],
+        ["Budi", 78],
+        ["Ratna", 92],
+        ["Bagas", 67],
+        ["Sari", 73],
+      ];
+
+      const rowsPerPage = 5;
+      let currentPage = 1;
+      let filteredData = siswa;
+
+      // Fungsi untuk menentukan nilai huruf
+      function getNilaiHuruf(nilai) {
+        if (nilai >= 85) return "A";
+        else if (nilai >= 75) return "B";
+        else if (nilai >= 60) return "C";
+        else return "D";
+      }
+
+      // Fungsi untuk menampilkan data sesuai halaman
+      function displayTable(data) {
+        const table = document.querySelector("table");
+        table.innerHTML = `
+       <tr>
+         <th>Nama</th>
+         <th>Nilai</th>
+         <th>Status</th>
+         <th>Nilai Huruf</th>
+       </tr>`;
+
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = data.slice(start, end);
+
+        for (const siswa of pageData) {
+          const row = document.createElement("tr");
+
+          const cellNama = document.createElement("td");
+          cellNama.textContent = siswa[0];
+          row.appendChild(cellNama);
+
+          const cellNilai = document.createElement("td");
+          cellNilai.textContent = siswa[1];
+          row.appendChild(cellNilai);
+
+          const cellStatus = document.createElement("td");
+          cellStatus.textContent = siswa[1] >= 75 ? "Lulus" : "Tidak Lulus";
+          row.appendChild(cellStatus);
+
+          const cellNilaiHuruf = document.createElement("td");
+          cellNilaiHuruf.textContent = getNilaiHuruf(siswa[1]);
+          row.appendChild(cellNilaiHuruf);
+
+          table.appendChild(row);
+        }
+
+        document.getElementById("info").textContent = `Showing ${
+          start + 1
+        } to ${Math.min(end, data.length)} of ${data.length} entries`;
+      }
+
+      // Fungsi untuk pagination "Next" dan "Previous"
+      function nextPage() {
+        if (currentPage * rowsPerPage < filteredData.length) {
+          currentPage++;
+          displayTable(filteredData);
+        }
+      }
+
+      function prevPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          displayTable(filteredData);
+        }
+      }
+
+      // Fungsi untuk melakukan pencarian
+      document.getElementById("search").addEventListener("input", function () {
+        const searchText = this.value.toLowerCase();
+        filteredData = siswa.filter((siswa) =>
+          siswa[0].toLowerCase().includes(searchText)
+        );
+        currentPage = 1;
+        displayTable(filteredData);
+      });
+
+      // Menampilkan tabel pertama kali
+      displayTable(siswa);
+    </script>
+  </body>
+</html>
